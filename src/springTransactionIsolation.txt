@@ -1,0 +1,19 @@
+Spring支持的常用数据库事务传播属性和事务隔离级别
+
+事务的属性
+   1.propagation（传播）：用来设置事务的传播行为
+     事务的传播行为：一个方法运行在了一个开启了事务的方法中时，当前方法是使用原来的事务还是开启一个新事务
+     Propagation.REQUIRE:默认值，使用原来的事务
+     Propagation.REQUIRE_NEW:将原来的事务挂起，开启一个新的事务
+   2.isolation（隔离）：用来调用事务的隔离级别
+     Isolation.REPLEATABLE_READ:可重复读，MySQL默认的隔离级别
+     Isolation.READ_COMMITTED:读已提交，Oracle默认的隔离级别，开发时通常使用的隔离级别
+
+隔离级别：数据库系统必须具有隔离并发运行各个事务的能力，使它们不会相互影响，避免各种并且发问题。一个事务与其他事务
+隔离的程序称为隔离级别，隔离级别越高，数据一致性就越好，但兵发性越弱
+   1.读未提交：READ UNCOMMITTED,允许Transact1读取Transact2未提交的修改
+   2.读已提交：READ COMMITTED,要求transact1只能读到Transact2已提交的修改
+   3.可重复读：REPEATABLE READ,确保Transact1可以多次从一个字段中读取到相同的值，即Transact1执行
+     期间禁止其他事务对这个字段的更新
+   4.串行化：SERIALIZABLE,确保Transact1可以多次从一个表中读取到相同的一行，在Transact1在执行期间，禁止
+     其他事务对这个表进行添加，更新，删除操作，可以避免任何并发问题，但性能低下
